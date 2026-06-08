@@ -1,0 +1,278 @@
+curl \
+  'https://youtube.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=SylvainLyve&key=[YOUR_API_KEY]' \
+  --header 'Accept: application/json' \
+  --compressed
+
+{
+  "kind": "youtube#channelListResponse",
+  "etag": "Kwvk_S9k1hw1F7xXP7FPrrGUThY",
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 5
+  },
+  "items": [
+    {
+      "kind": "youtube#channel",
+      "etag": "kebxaDaAGPPSPu76Zp3NjlWjYyE",
+      "id": "UCB9gfNOymNLIm5J8lf4MhtA",
+      "contentDetails": {
+        "relatedPlaylists": {
+          "likes": "",
+          "uploads": "UUB9gfNOymNLIm5J8lf4MhtA"
+        }
+      }
+    }
+  ]
+}
+
+curl \
+  'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUB9gfNOymNLIm5J8lf4MhtA&key=[YOUR_API_KEY]' \
+  --header 'Accept: application/json' \
+  --compressed
+
+{
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "pfQMLzQAi6RHxpOSAVCkIujPebQ",
+  "nextPageToken": "EAAaHlBUOkNBVWlFREUwTnpsRk1qazVORVUxUmtOR05FRQ",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "MzpoxTpq2FL9xwOjyPj-_tpDzWc",
+      "id": "VVVCOWdmTk95bU5MSW01SjhsZjRNaHRBLmJFeHdvTm9kZE9B",
+      "snippet": {
+        "publishedAt": "2026-05-21T16:15:00Z",
+        "channelId": "UCB9gfNOymNLIm5J8lf4MhtA",
+        "title": "Citroën Ami : L'angoisse.",
+        "description": "Découvrez toutes les applications Odoo ici : https://www.odoo.com/r/y25Z\nCollaboration commerciale\n\n--------------------------------------------------\n\nMerci au circuit de l'Ouest Parisien pour leur accueil comme toujours exceptionnel\nMerci aux mairies de Hargeville et Jumeauville pour leur accord et la fermeture de la route\n\nProduction : Anaelle Le Magorou et Capucine Semur\nImage : Lucas Martin\nSon : Alan Poirier\nDrone : Thibault Gabet et Fabrice Baroiller\nMontage sponso : Robin Danos\nMontage : Lucas Aubert, Pablo Kerlogot et Thibault Iacolare\nVignette : Quentin Legac et Skoty.Studio\nAutomobiliste énervé : Joseph Shuman\nAssistant retournement : Charles Kengen\n\n--------------------------------------------------\n\nVous pouvez vous abonner en cliquant sur \" S'abonner \" et commenter en mettant un commentaire dans l'onglet \" commentaires \" \n\n📲 INSTAGRAM    https://www.instagram.com/sylvain_lyve/\n📲 TWITTER          https://twitter.com/SylvainLyve\n📲 BESTOF         https://www.youtube.com/channel/UCd26XTdCltsEpyvZmmGW9Aw\n\n📩 MAIL : contactsylvainlyve@gmail.com\n\nOffre spéciale avec NordVPN le sang : https://nordvpn.com/yugioh\n\nGros bisous et rdv le 31 Mai sur Twitch à 20h\n\n#AMI #45KMH #ANGOISSE",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/bExwoNoddOA/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/bExwoNoddOA/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/bExwoNoddOA/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/bExwoNoddOA/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/bExwoNoddOA/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Sylvain Lyve",
+        "playlistId": "UUB9gfNOymNLIm5J8lf4MhtA",
+        "position": 0,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "bExwoNoddOA"
+        },
+        "videoOwnerChannelTitle": "Sylvain Lyve",
+        "videoOwnerChannelId": "UCB9gfNOymNLIm5J8lf4MhtA"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "5fWMVXg0c4NhZs8Kfj2QUFFoKZM",
+      "id": "VVVCOWdmTk95bU5MSW01SjhsZjRNaHRBLkx3d2JrTHNMVmdF",
+      "snippet": {
+        "publishedAt": "2026-05-14T16:15:02Z",
+        "channelId": "UCB9gfNOymNLIm5J8lf4MhtA",
+        "title": "Pour 10.000 balles t'as plus rien ( Guide achat 10.000 euros )",
+        "description": "Trouvez l’historique de votre voiture avec CarVertical et 20% de réduction avec le code SYLVAIN   👉 https://www.carvertical.com/sylvain\nCollaboration commerciale\n\n--------------------------------------------------\n\nVous pouvez vous abonner en cliquant sur \" S'abonner \" et commenter en mettant un commentaire dans l'onglet \" commentaires \" \n\n📲 INSTAGRAM    https://www.instagram.com/sylvain_lyve/\n📲 TWITTER          https://twitter.com/SylvainLyve\n📲 BESTOF         https://www.youtube.com/channel/UCd26XTdCltsEpyvZmmGW9Aw\n\nMontage sponso : Robin Danos\nMontage : Hugo Cuocolo et Thibault Iacolare\nImage : Lucas Martin\nSon : Alan Poirier\nVignette : Quentin Legac\n\n📩 MAIL : contactsylvainlyve@gmail.com\n\nOffre spéciale avec NordVPN le sang : https://nordvpn.com/yugioh\n\nGros bisous\n\n#GUIDEACHAT #LESPRIXSONTFOUS #COURAGE",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/LwwbkLsLVgE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/LwwbkLsLVgE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/LwwbkLsLVgE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/LwwbkLsLVgE/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/LwwbkLsLVgE/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Sylvain Lyve",
+        "playlistId": "UUB9gfNOymNLIm5J8lf4MhtA",
+        "position": 1,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "LwwbkLsLVgE"
+        },
+        "videoOwnerChannelTitle": "Sylvain Lyve",
+        "videoOwnerChannelId": "UCB9gfNOymNLIm5J8lf4MhtA"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "TJ2WiaZsLqx2uISMPqp--_Z1GKM",
+      "id": "VVVCOWdmTk95bU5MSW01SjhsZjRNaHRBLkpyMS1YUGgyNzNr",
+      "snippet": {
+        "publishedAt": "2026-04-30T16:15:03Z",
+        "channelId": "UCB9gfNOymNLIm5J8lf4MhtA",
+        "title": "Battre une LAMBORGHINI avec un RENAULT SCÉNIC  : C'est possible ?",
+        "description": "Trouvez l’historique de votre voiture avec CarVertical et 20% de réduction avec le code SYLVAIN   👉 https://www.carvertical.com/sylvain\nCollaboration commerciale\n\n--------------------------------------\n\nMerci au circuit de l'Ouest Parisien pour leur accueil sur cette journée Trackday\n\nProduction ; Anaelle Le Magorou et Capucine Semur\nImage : Lucas Martin\nSon : Alan Poirier\nDrone : Thibault Gabet\nMécanique : Charles Kengen\nChronomètre : Joseph Shuman\nMontage : Thibault Iacolare et Pablo Kerlogot\nMontage sponso : Robin Danos\nVignette : Quentin Legac\n\n--------------------------------------\n\nVous pouvez vous abonner en cliquant sur \" S'abonner \" et commenter en mettant un commentaire dans l'onglet \" commentaires \" \n\n📲 INSTAGRAM    https://www.instagram.com/sylvain_lyve/\n📲 TWITTER          https://twitter.com/SylvainLyve\n📲 BESTOF         https://www.youtube.com/channel/UCd26XTdCltsEpyvZmmGW9Aw\n\n📩 MAIL : contactsylvainlyve@gmail.com\n\nOffre spéciale avec NordVPN le sang : https://nordvpn.com/yugioh\n\nGros bisous\n\n#RENAULTSONIC #TRACKDAY #PLAISIR",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Jr1-XPh273k/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Jr1-XPh273k/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Jr1-XPh273k/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Jr1-XPh273k/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Jr1-XPh273k/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Sylvain Lyve",
+        "playlistId": "UUB9gfNOymNLIm5J8lf4MhtA",
+        "position": 2,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "Jr1-XPh273k"
+        },
+        "videoOwnerChannelTitle": "Sylvain Lyve",
+        "videoOwnerChannelId": "UCB9gfNOymNLIm5J8lf4MhtA"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "LdKOrRCSc28eG_SsIgFKx9ROvBY",
+      "id": "VVVCOWdmTk95bU5MSW01SjhsZjRNaHRBLnpwVXlnNE85ZjdV",
+      "snippet": {
+        "publishedAt": "2026-04-23T16:15:06Z",
+        "channelId": "UCB9gfNOymNLIm5J8lf4MhtA",
+        "title": "VTECH : Les films Cars ( Ka-chow )",
+        "description": "Améliorez votre navigation avec NordVPN : 4 mois offerts sur l'abonnement de 2 ans 👉 https://nordvpn.com/sylvainlyve\n\n------------------------------------------------\n\nVous pouvez vous abonner en cliquant sur \" S'abonner \" et commenter en mettant un commentaire dans l'onglet \" commentaires \" \n\n📲 INSTAGRAM    https://www.instagram.com/sylvain_lyve/\n📲 TWITTER          https://twitter.com/SylvainLyve\n📲 BESTOF         https://www.youtube.com/channel/UCd26XTdCltsEpyvZmmGW9Aw\n\nMontage sponso : Robin Danos\nMontage : Hugo Cuocolo et Thibault Iacolare\nVignette : Quentin Legac\n\n📩 MAIL : contactsylvainlyve@gmail.com\n\nOffre spéciale avec NordVPN le sang : https://nordvpn.com/yugioh\n\nGros bisous\n\n#CARS #JEDETESTEMARTIN #FABULEUX",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/zpUyg4O9f7U/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/zpUyg4O9f7U/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/zpUyg4O9f7U/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/zpUyg4O9f7U/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/zpUyg4O9f7U/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Sylvain Lyve",
+        "playlistId": "UUB9gfNOymNLIm5J8lf4MhtA",
+        "position": 3,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "zpUyg4O9f7U"
+        },
+        "videoOwnerChannelTitle": "Sylvain Lyve",
+        "videoOwnerChannelId": "UCB9gfNOymNLIm5J8lf4MhtA"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "8DoKs83PBbe4S6CfGZtq6ytSguU",
+      "id": "VVVCOWdmTk95bU5MSW01SjhsZjRNaHRBLlhQdEZrS0E4V0Vj",
+      "snippet": {
+        "publishedAt": "2026-04-16T16:15:04Z",
+        "channelId": "UCB9gfNOymNLIm5J8lf4MhtA",
+        "title": "Ouvrir la portière à 130km/h : ça fait quoi ?",
+        "description": "Merci à Éléphant Bleu d’avoir sponsorisé la vidéo! Jusqu'à fin avril, rendez-vous en station de lavage pour scanner le QR code et tenter de gagner une voiture. \nTrouvez la station Eléphant Bleu la plus proche de vous : https://www.elephantbleu.com\n\n--------------------------------------\n\nVous pouvez vous abonner en cliquant sur \" S'abonner \" et commenter en mettant un commentaire dans l'onglet \" commentaires \" \n\n📲 INSTAGRAM    https://www.instagram.com/sylvain_lyve/\n📲 TWITTER          https://twitter.com/SylvainLyve\n📲 BESTOF         https://www.youtube.com/channel/UCd26XTdCltsEpyvZmmGW9Aw\n\nCompositeur cascadeur : Joseph Shuman\nProduction : Anaelle Le Magorou et Capucine Semur\nImage : Lucas Martin\nSon : Alan Poirier\nMontage sponso : Robin Danos\nMontage : Pablo Kerlogot et Thibault Iacolare\nVignette : Quentin Legac\nFourniture voiture : Cyril\n\n📩 MAIL : contactsylvainlyve@gmail.com\n\nOffre spéciale avec NordVPN le sang : https://nordvpn.com/yugioh\n\nGros bisous\n\n#SCIENCE #GLOBULEUX #SONETODEUR",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/XPtFkKA8WEc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/XPtFkKA8WEc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/XPtFkKA8WEc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/XPtFkKA8WEc/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/XPtFkKA8WEc/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Sylvain Lyve",
+        "playlistId": "UUB9gfNOymNLIm5J8lf4MhtA",
+        "position": 4,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "XPtFkKA8WEc"
+        },
+        "videoOwnerChannelTitle": "Sylvain Lyve",
+        "videoOwnerChannelId": "UCB9gfNOymNLIm5J8lf4MhtA"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 99,
+    "resultsPerPage": 5
+  }
+}

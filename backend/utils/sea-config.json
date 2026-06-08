@@ -1,0 +1,7 @@
+{
+    "main": "dist/backend.js",
+    "mainFormat": "commonjs",
+    "output": "dist/express-backend",
+    "disableExperimentalSEAWarning": true,
+    "assets": {}
+}

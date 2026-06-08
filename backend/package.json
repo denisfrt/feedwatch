@@ -1,0 +1,48 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/index.js",
+    "bin": "src/index.js",
+    "scripts": {
+        "dev": "NODE_ENVFILE=.env.development nodemon src/index.js",
+        "start": "NODE_ENVFILE=.env.production node src/index.js",
+        "build": "pnpm run esbuild && pnpm run rename",
+        "pkgbuild": "pkg . -t node26-linux-x64 --output dist/express-backend",
+        "esbuild": "node utils/esbuild.js && node --build-sea utils/sea-config.json",
+        "rename": "node utils/rename.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devEngines": {
+        "packageManager": {
+            "name": "pnpm",
+            "version": "^11.5.0",
+            "onFail": "download"
+        }
+    },
+    "type": "module",
+    "dependencies": {
+        "@googleapis/youtube": "^33.0.0",
+        "axios": "^1.17.0",
+        "better-sqlite3": "^12.10.0",
+        "cores": "^0.8.5",
+        "cors": "^2.8.6",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "express-session": "^1.19.0",
+        "googleapis": "^173.0.0",
+        "loglevel": "^1.9.2"
+    },
+    "devDependencies": {
+        "@yao-pkg/pkg": "^6.20.0",
+        "esbuild": "^0.28.0",
+        "nodemon": "^3.1.14"
+    },
+    "pkg": {
+        "assets": [
+            "node_modules/better-sqlite3/build/Release/better_sqlite3.node"
+        ]
+    }
+}
