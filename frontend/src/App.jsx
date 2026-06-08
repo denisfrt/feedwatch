@@ -8,7 +8,7 @@ import { isAlive } from './scripts/api'
 function App(props) {
     const [isEditing, setEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [ytHandles, setYtHandles] = useState(props.ytHandles)
+    const [ytHandles, setYtHandles] = useState(props.ytHandles);
 
     useEffect(() => {
         uiLogger.debug('App.useEffect');
@@ -18,10 +18,8 @@ function App(props) {
                 setIsLoading(true);
                 await isAlive();
                 const savedHandles = await persist.getHandles();
-                const newHandles = savedHandles
-                    .filter((handle) => ytHandles.indexOf(handle) === -1);
                 if (!cancelled) {
-                    setYtHandles(ytHandles.concat(newHandles));
+                    setYtHandles(ytHandles => [...new Set([...ytHandles, ...savedHandles])]);
                     setIsLoading(false);
                 }
             } catch (err) {

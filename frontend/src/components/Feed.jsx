@@ -3,6 +3,7 @@ import { uiLogger } from '../scripts/logger';
 import { api } from '../scripts/api';
 import { persist } from '../scripts/persist';
 import VideoItem from './VideoItem';
+import { useCallback } from 'react';
 
 function Feed(props) {
     const [newHandle, setNewHandle] = useState(props.handle);
@@ -12,6 +13,10 @@ function Feed(props) {
 
     const seenVideos = useRef([]);
 
+    const doDispatch = useCallback((id, videos) => {
+        props.dispatch({ type: 'setVideos', id: id, videoList: videos });
+    }, [props]);
+
     // load videos
     useEffect(() => {
         uiLogger.debug(`Feed.useEffect: handle=${props.handle} init=${props.isInitialized}`);
@@ -20,7 +25,7 @@ function Feed(props) {
             try {
                 const videos = await api.get(`/api/yt/feed?handle=${props.handle}`);
                 if (!cancelled) {
-                    props.dispatch({ type: 'setVideos', id: props.id, videoList: videos });
+                    doDispatch(props.id, videos);
                     setIsError(null);
                 }
             } catch (err) {
@@ -36,7 +41,12 @@ function Feed(props) {
         return () => {
             cancelled = true;
         };
-    }, [props.isInitialized, props.handle]);
+    }, [props.isInitialized, props.handle, props.id, doDispatch]);
+
+    const getNotViewedCount = useCallback(() => {
+        return props.videos.reduce(
+            (acc, val) => acc + (seenVideos.current.includes(val.id) ? 0 : 1), 0);
+    }, [props.videos]);
 
     // load videos seen status
     useEffect(() => {
@@ -71,12 +81,7 @@ function Feed(props) {
         return () => {
             cancelled = true;
         };
-    }, [props.videos, props.handle]);
-
-    function getNotViewedCount() {
-        return props.videos.reduce(
-            (acc, val) => acc + (seenVideos.current.includes(val.id) ? 0 : 1), 0);
-    }
+    }, [props.videos, props.handle, props.isInitialized, getNotViewedCount]);
 
     function seen(id, value) {
         let idx = seenVideos.current.indexOf(id);
