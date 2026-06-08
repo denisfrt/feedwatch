@@ -8,6 +8,8 @@
         "dev:backend": "pnpm run --filter backend dev",
         "dev:tauri": "pnpm run --filter tauri tauri:dev",
         "build": "pnpm run --filter tauri tauri:build",
+        "build:linux": "pnpm run --filter tauri tauri:build:linux",
+        "build:windows": "pnpm run --filter tauri tauri:build:windows",
         "install:all": "pnpm install"
     },
     "keywords": [],
