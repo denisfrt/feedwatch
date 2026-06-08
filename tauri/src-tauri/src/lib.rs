@@ -17,9 +17,9 @@ fn start_backend(app: &tauri::AppHandle, receiver: Receiver<i32>) -> Result<(), 
         })?;
     cmd = cmd
         .env("NODE_ENVFILE", ".env.production")
-        .env("NODE_APPDATADIR", appdata_dir.display().to_string())
-        .env("NODE_APPCONFIGDIR", appconfig_dir.display().to_string())
-        .env("NODE_RESDIR", resource_dir.display().to_string());
+        .env("NODE_APPDATADIR", appdata_dir.to_string_lossy().to_string())
+        .env("NODE_APPCONFIGDIR", appconfig_dir.to_string_lossy().to_string())
+        .env("NODE_RESDIR", resource_dir.to_string_lossy().to_string());
 
 
     let result = cmd.spawn();

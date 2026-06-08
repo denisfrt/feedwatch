@@ -21,6 +21,22 @@ export function copyFile(fromFilename, toFilename) {
     fs.copyFileSync(fromFilename, toFilename);
 }
 
+export function normalizeWindowsPath(pathStr) {
+    // Only apply on Windows
+    if (process.platform !== 'win32') {
+        return pathStr;
+    }
+    // \\?\UNC\host\share\path -> \\host\share\path
+    if (pathStr.startsWith('\\\\?\\UNC\\')) {
+        return pathStr.slice(8).replace(/^\\/, '');
+    }
+    // \\?\C:\path -> C:\path
+    if (pathStr.startsWith('\\\\?\\')) {
+        return pathStr.slice(4);
+    }
+    return pathStr;
+}
+
 function getRes(dir, useDefault = true) {
     const cwd = process.env.NODE_RESDIR || (useDefault ? '.' : undefined);
     return dir ? `${cwd}/${dir}` : undefined;
