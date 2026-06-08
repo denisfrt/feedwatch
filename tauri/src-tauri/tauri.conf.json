@@ -2,7 +2,7 @@
     "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
     "productName": "feedwatch",
     "version": "0.1.0",
-    "identifier": "com.feedwatch.dev",
+    "identifier": "com.feedwatch",
     "build": {
         "frontendDist": "../../frontend/dist",
         "devUrl": "http://localhost:3000",
@@ -49,7 +49,7 @@
             "../../backend/dist/express-backend"
         ],
         "resources": {
-            "../../backend/.env.production": "",
+            "../../backend/.env.example": "",
             "../../backend/node_modules/better-sqlite3/": "node_modules/better-sqlite3/",
             "../../backend/assets/schema.sql": "assets/schema.sql"
         }

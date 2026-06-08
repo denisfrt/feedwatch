@@ -1,17 +1,8 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import { isSea, getRawAsset } from 'node:sea';
 import { createRequire } from "module";
+import { createDir } from '../env.js';
 import log from '../logger.js';
-
-function createDir(filePath) {
-    const dir = path.dirname(filePath);
-    fs.mkdir(dir, { recursive: true }, (err) => {
-        if (err) {
-            log.error('Error creating directory:', err);
-        }
-    });
-}
 
 export function openSqlite3Database(dbOptions) {
     let db = null;
