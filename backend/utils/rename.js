@@ -10,6 +10,6 @@ if (!targetTriple) {
 }
 
 fs.renameSync(
-    `${exename}${ext}`,
+    `${exename}`,
     `${exename}-${targetTriple}${ext}`
 );
