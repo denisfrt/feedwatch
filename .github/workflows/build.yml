@@ -1,0 +1,44 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - "v*"
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+        include:
+          - os: ubuntu-latest
+            artifact: appimage/feedwatch_0.1.0_amd64.AppImage
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 26
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Build app
+        run: pnpm run build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v7
+        if: github.ref_type != 'tag'
+        with:
+          path: tauri/src-tauri/target/release/bundle/${{ matrix.artifact }}
+          archive: false
