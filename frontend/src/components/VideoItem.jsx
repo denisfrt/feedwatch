@@ -50,7 +50,7 @@ function VideoItem(props) {
                             type="checkbox"
                             checked={isVideoSeen}
                             onChange={handleChange} />
-                        <label for={`seenInputToggle-${props.video.id}`}>
+                        <label htmlFor={`seenInputToggle-${props.video.id}`}>
                             {isVideoSeen ? "Viewed" : "Not viewed"}
                         </label>
                     </div>

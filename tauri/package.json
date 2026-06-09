@@ -5,7 +5,9 @@
     "scripts": {
         "tauri": "tauri",
         "tauri:dev": "WEBKIT_DISABLE_DMABUF_RENDERER=1 tauri dev",
-        "tauri:build": "NO_STRIP=true tauri build",
+        "tauri:build": "tauri build --no-bundle",
+        "tauri:build:linux": "NO_STRIP=true tauri build --config src-tauri/tauri.linux.conf.json",
+        "tauri:build:windows": "tauri build --config src-tauri/tauri.windows.conf.json --verbose",
         "tauri:prod": "WEBKIT_DISABLE_DMABUF_RENDERER=1 src-tauri/target/release/bundle/appimage/feedwatch_0.1.0_amd64.AppImage"
     },
     "keywords": [],

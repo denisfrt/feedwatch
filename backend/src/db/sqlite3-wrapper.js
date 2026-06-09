@@ -1,17 +1,8 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import { isSea, getRawAsset } from 'node:sea';
 import { createRequire } from "module";
+import { createDir, normalizeWindowsPath } from '../env.js';
 import log from '../logger.js';
-
-function createDir(filePath) {
-    const dir = path.dirname(filePath);
-    fs.mkdir(dir, { recursive: true }, (err) => {
-        if (err) {
-            log.error('Error creating directory:', err);
-        }
-    });
-}
 
 export function openSqlite3Database(dbOptions) {
     let db = null;
@@ -23,7 +14,7 @@ export function openSqlite3Database(dbOptions) {
         // write bindings from assets
         const moduleName = 'better_sqlite3.node';
         try {
-            const bindingPath = dbOptions.bindings;
+            const bindingPath = normalizeWindowsPath(dbOptions.bindings);
             // load module & open database
             const { createRequire } = require('node:module');
             const nodeRequire = createRequire(bindingPath);
