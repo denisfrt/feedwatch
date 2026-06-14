@@ -28,6 +28,7 @@ Once all channels have, you can click again on the clockwork button to disable e
 **Remarks**:
  - number of not viewed videos is displayed next to channel name
  - clicking on a video thumbnail will start video playing and note it as viewed (you can still manually set the view status with the button below it).
+ - channels display order can be changed by dragging & dropping their titles up or down.
 
 
 ## Installation

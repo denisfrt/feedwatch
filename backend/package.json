@@ -7,6 +7,7 @@
     "scripts": {
         "dev": "NODE_ENVFILE=.env.development nodemon src/index.js",
         "start": "NODE_ENVFILE=.env.production node src/index.js",
+        "lint": "eslint .",
         "build": "pnpm run esbuild && pnpm run rename",
         "pkgbuild": "pkg . -t node26-linux-x64 --output dist/express-backend",
         "esbuild": "node utils/esbuild.js && node --build-sea utils/sea-config.json",
@@ -32,12 +33,16 @@
         "dotenv": "^17.4.2",
         "express": "^5.2.1",
         "express-session": "^1.19.0",
+        "google-auth-library": "^10.7.0",
         "googleapis": "^173.0.0",
         "loglevel": "^1.9.2"
     },
     "devDependencies": {
+        "@eslint/js": "^10.0.1",
         "@yao-pkg/pkg": "^6.20.0",
         "esbuild": "^0.28.0",
+        "eslint": "^10.4.1",
+        "globals": "^17.6.0",
         "nodemon": "^3.1.14"
     },
     "pkg": {

@@ -9,8 +9,9 @@ const db = openSqlite3Database(env.database, env.database);
 async function getHandles(type) {
     const query = db.prepare(`SELECT f_name
                               FROM t_feeds
+                              WHERE f_type = ?
                               ORDER BY f_order, f_name`).pluck();
-    const json = query.all() || '[]';
+    const json = query.all(type) || '[]';
     return json;
 }
 
@@ -59,12 +60,72 @@ async function delHandle(type, handle) {
     remove.run(type, handle);
 }
 
+async function addSession(type, token, refresh, t_expiry, r_expiry) {
+    // maintain only one session for now
+    await clearSession(type, true);
+    // insert session info
+    const insert = db.prepare(`INSERT OR IGNORE
+                               INTO t_sessions(f_type, f_token, f_refresh, f_token_expiry, f_refresh_expiry)
+                               VALUES(?, ?, ?, ?, ?)`);
+    const r = insert.run(type, token, refresh, t_expiry, r_expiry);
+    return r.lastInsertRowid;
+}
+
+async function getSession(type, id) {
+    let json;
+    if (id === -1) {
+        const query = db.prepare(`SELECT f_token, f_refresh, f_token_expiry, f_refresh_expiry
+                                  FROM t_sessions
+                                  WHERE f_type = ?`);
+        json = query.get(type);
+    } else {
+        const query = db.prepare(`SELECT f_token, f_refresh, f_token_expiry, f_refresh_expiry
+                              FROM t_sessions
+                              WHERE f_type = ? AND k_id = ?`);
+        json = query.get(type, id);
+    }
+    const nowDate = new Date();
+    let r = { token: null, refresh: null };
+    if (json.f_token_expiry) {
+        const tokenExpiryDate = new Date(json.f_token_expiry * 1000);
+        if (nowDate < tokenExpiryDate) {
+            r.token = json.f_token;
+        }
+    }
+    if (json.f_refresh_expiry) {
+        const refreshExpiryDate = new Date(json.f_refresh_expiry * 1000);
+        if (nowDate < refreshExpiryDate) {
+            r.refresh = json.f_refresh;
+        }
+    }
+    return r;
+}
+
+async function clearSession(type, all) {
+    if (all) {
+        const remove = db.prepare(`DELETE
+                                   FROM t_sessions
+                                   WHERE f_type = ?`);
+        remove.run(type);
+    } else {
+        const remove = db.prepare(`DELETE
+                                   FROM t_sessions
+                                   WHERE f_type = ?
+                                     AND f_token_expiry <= CURRENT_TIMESTAMP
+                                     AND f_refresh_expiry <= CURRENT_TIMESTAMP`);
+        remove.run(type);
+    }
+}
+
 const api = {
     getHandles: (type) => getHandles(type),
     setHandleOrder: (type, handles) => setHandleOrder(type, handles),
     getSeen: (type, handle) => getSeen(type, handle),
     setHandle: (type, handle, seen) => setHandle(type, handle, seen),
-    delHandle: (type, handle) => delHandle(type, handle)
+    delHandle: (type, handle) => delHandle(type, handle),
+    addSession: (type, token, refresh, t_expiry, r_expiry) => addSession(type, token, refresh, t_expiry, r_expiry),
+    getSession: (type, id) => getSession(type, id),
+    clearSession: (type) => clearSession(type)
 };
 
 export default api;

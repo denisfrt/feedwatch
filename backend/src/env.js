@@ -11,7 +11,7 @@ export function createDir(filePath) {
     const dir = path.dirname(filePath);
     fs.mkdir(dir, { recursive: true }, (err) => {
         if (err) {
-            log.error('Error creating directory:', err);
+            console.error('Error creating directory:', err);
         }
     });
 }
@@ -86,10 +86,19 @@ const env = {
     },
     secrets: {
         session: process.env.SESSION_SECRET || abort('missing env/session key'),
-        yt_key: process.env.YOUTUBE_API_KEY || abort('missing env/yt key')
+        yt_apikey: process.env.YOUTUBE_API_KEY,
+        yt_clientid: process.env.YOUTUBE_CLIENT_ID,
+        yt_clientsecret: process.env.YOUTUBE_CLIENT_SECRET,
     },
 };
 
-const { secrets, ...debugEnv } = env;
+if (!env.secrets.yt_apikey) {
+    if (!env.secrets.yt_clientid || !env.secrets.yt_clientsecret) {
+        abort('missing youtube credentials');
+    }
+}
+
+const debugEnv = { ...env };
+delete debugEnv.secrets;
 console.info('env: ' + JSON.stringify(debugEnv, null, 2));
 export default env;

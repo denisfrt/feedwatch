@@ -51,6 +51,10 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
 
+      - name: Linter (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: pnpm run lint
+
       - name: Build app
         run: pnpm run ${{ matrix.target }}
 

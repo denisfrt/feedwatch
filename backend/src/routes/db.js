@@ -101,4 +101,9 @@ router.delete('/handle', async (req, res) => {
     }
 });
 
+router.get('/session', async (req, res) => {
+    const json = await database.getSession('yt', -1);
+    res.json(json);
+});
+
 export default router;

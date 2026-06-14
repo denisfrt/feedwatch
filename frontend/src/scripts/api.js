@@ -13,7 +13,7 @@ export async function request(endpoint, options = {}) {
 
     const config = {
         ...options,
-        headers/*,
+        headers,
         credentials: 'include' // send cookies for session*/
     };
 

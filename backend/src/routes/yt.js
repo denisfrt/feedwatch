@@ -1,18 +1,18 @@
 import express from 'express';
 import log from '../logger.js';
-import env from '../env.js';
+import { getCredentials } from './auth.js';
 
 const router = express.Router();
 
 // keep local memory cache of playlist ids
 let globalUploadsPlaylistIds = {}
 
-async function importApi(name) {
+async function importApi(name, credentials) {
     if (name === 'google') {
         const { google } = await import('googleapis');
         const yt = google.youtube({
             version: "v3",
-            auth: env.secrets.yt_key,
+            auth: credentials.key ?? credentials.auth
         });
         return {
             getPlaylist: (handle) => yt.channels.list({
@@ -34,56 +34,73 @@ async function importApi(name) {
         const axios = await import('axios');
         const axiosFetch = async (command, args) => {
             const baseUrl = "https://youtube.googleapis.com/youtube/v3/";
-            const url = `${baseUrl}${command}?${args}&key=${env.secrets.yt_key}`
-            const response = await axios.default.get(url, {
-                headers: {
-                    Accept: "application/json",
-                },
-            });
+            let headers = { Accept: "application/json" };
+            if (credentials.key) {
+                args.set('key', credentials.key);
+            } else {
+                headers.Authorization = credentials.token;
+            }
+            let url = `${baseUrl}${command}?${args.toString()}`
+            const response = await axios.default.get(url, { headers });
             return response;
         }
         return {
             getPlaylist: (handle) => {
-                return axiosFetch('channels',
-                    `part=contentDetails&forHandle=${handle}`);
+                return axiosFetch('channels', new URLSearchParams({
+                    part: 'contentDetails',
+                    forHandle: handle
+                }));
             },
             getVideos: (uploadsPlaylistId) => {
-                return axiosFetch('playlistItems',
-                    `part=snippet&playlistId=${uploadsPlaylistId}&maxResults=10`);
+                return axiosFetch('playlistItems', new URLSearchParams({
+                    part: 'snippet',
+                    playlistId: uploadsPlaylistId,
+                    maxResults: 10
+                }));
             },
             getVideosInfo: (videoIdList) => {
-                return axiosFetch('videos',
-                    `part=contentDetails&id=${videoIdList.join(',')}`);
+                return axiosFetch('videos', new URLSearchParams({
+                    part: 'contentDetails',
+                    id: videoIdList.join(',')
+                }));
             }
         };
     } else {
         const defaultFetch = async (command, args) => {
             const baseUrl = "https://youtube.googleapis.com/youtube/v3/";
-            const url = `${baseUrl}${command}?${args}&key=${env.secrets.yt_key}`
-            const response = await fetch(url, {
-                headers: {
-                    Accept: "application/json",
-                },
-            });
+            const headers = { Accept: "application/json" };
+            if (credentials.key) {
+                args.set('key', credentials.key);
+            } else {
+                headers.Authorization = credentials.token;
+            }
+            let url = `${baseUrl}${command}?${args.toString()}`
+            const response = await fetch(url, { headers });
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
             }
-
             const result = await response.json();
             return { status: response.status, data: result };
         }
         return {
             getPlaylist: (handle) => {
-                return defaultFetch('channels',
-                    `part=contentDetails&forHandle=${handle}`);
+                return defaultFetch('channels', new URLSearchParams({
+                    part: 'contentDetails',
+                    forHandle: handle
+                }));
             },
             getVideos: (uploadsPlaylistId) => {
-                return defaultFetch('playlistItems',
-                    `part=snippet&playlistId=${uploadsPlaylistId}&maxResults=10`);
+                return defaultFetch('playlistItems', new URLSearchParams({
+                    part: 'snippet',
+                    playlistId: uploadsPlaylistId,
+                    maxResults: 10
+                }));
             },
             getVideosInfo: (videoIdList) => {
-                return defaultFetch('videos',
-                    `part=contentDetails&id=${videoIdList.join(',')}`);
+                return defaultFetch('videos', new URLSearchParams({
+                    part: 'contentDetails',
+                    id: videoIdList.join(',')
+                }));
             }
         };
     }
@@ -103,9 +120,8 @@ UUPS 	Popular short videos
 UUPV 	Popular live streams
 UUSH 	Short videos
 */
-async function fetchChannelVideos(req, handle) {
-    const api = await importApi('default');
-    let uploadsPlaylistId = null;
+async function fetchChannelVideos(api, handle) {
+    let uploadsPlaylistId;
     // check if we already known the playlist id
     if (globalUploadsPlaylistIds[handle]) {
         uploadsPlaylistId = globalUploadsPlaylistIds[handle];
@@ -159,7 +175,8 @@ async function fetchChannelVideos(req, handle) {
     return data;
 }
 
-async function fetchChannelVideos2(req, handle) {
+/*
+async function fetchChannelVideos2(api, handle) {
     let data = [];
     if (handle === 'LinusTechTips') {
         await new Promise(r => setTimeout(r, 2000));
@@ -167,7 +184,7 @@ async function fetchChannelVideos2(req, handle) {
         data = JSON.parse(json);
     }
     return data;
-}
+}*/
 
 router.get('/feed', async (req, res) => {
     log.debug(`GET /yt/feed?handle=${req.query?.handle}`);
@@ -175,7 +192,9 @@ router.get('/feed', async (req, res) => {
         if (!req.query?.handle) {
             throw { status: 403, message: 'missing handle param' };
         }
-        const data = await fetchChannelVideos(req, req.query.handle);
+        const credentials = await getCredentials(req, res);
+        const api = await importApi('default', credentials);
+        const data = await fetchChannelVideos(api, req.query.handle);
         res.json(data);
     } catch (err) {
         res.status(err.status || 500).json({
