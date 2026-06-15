@@ -85,10 +85,8 @@ function App(props) {
                 {isConnectable && connectButtonTemplate}
                 {isConnected && settingButtonTemplate}
             </h1>
-            {
-                isConnected &&
-                (isLoading ? loadingTemplate : feedListTemplate)
-            }
+            {isLoading && loadingTemplate}
+            {isConnected && feedListTemplate}
         </>
     );
 }
