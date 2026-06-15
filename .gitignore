@@ -1,5 +1,6 @@
 **/.env*
-!.env.example.*
+!.env.linux.example
+!.env.windows.example
 **/node_modules
 **/dist
 **/package-lock.json
