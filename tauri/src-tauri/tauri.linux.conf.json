@@ -20,7 +20,7 @@
             "../../backend/dist/express-backend"
         ],
         "resources": {
-            "../../backend/.env.example": "",
+            "../../backend/.env.example.linux": ".env.example",
             "../../backend/node_modules/better-sqlite3/": "node_modules/better-sqlite3/",
             "../../backend/assets/schema.sql": "assets/schema.sql"
         }
