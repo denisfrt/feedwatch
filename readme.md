@@ -33,7 +33,11 @@ Once all channels have, you can click again on the clockwork button to disable e
 
 ## Installation
 
-Youtube API access is either gated by oauth or API key. Currently, only API key access is supported. To use this application, you need to create an API key on following these [instructions](https://developers.google.com/youtube/registering_an_application).
+Youtube API access is either gated by OAuth or API key.
+ - **API key**: this is the simplest method, you can create an API key by following these [instructions](https://developers.google.com/youtube/registering_an_application).
+ - **OAuth2**: this method will require your user to authorize your application to access their account to make API calls. You will need to create a web-server app client id (see [instructions](https://developers.google.com/identity/protocols/oauth2/web-server)).
+
+ **Note**: since this application is desktop, api keys or client id/secret are stored in .env file and should not be considered securely stored if you share access to your machine.
 
 ### Linux
  - download feedwatch_X.X.X_amd64.AppImage file
@@ -45,18 +49,22 @@ Youtube API access is either gated by oauth or API key. Currently, only API key 
  ```
  cp ~/.config/com.feedwatch/.env.example ~/.config/com.feedwatch/.env.production
  ```
- - edit ~/.config/com.feedwatch/.env.production and you created API key:
+ - edit ~/.config/com.feedwatch/.env.production and either set your API key or your client id/secret (OAuth):
  ```
  YOUTUBE_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXX
- ```
+ YOUTUBE_CLIENT_ID=XXXXXXX-XXXXXXXXXXX.apps.googleusercontent.com
+ YOUTUBE_CLIENT_SECRET=XX-XXXXXXXXXXXXXX
+```
  - restarting the application should then work fine.
 
 ### Windows
- - download feedwatch_0.1.0_x64_en-US.msi file
+ - download feedwatch_X.X.X_x64_en-US.msi file
  - double click on it to install
  - starting the app a first time will create a default configuration file in %APPDATA%/com.feedwatch/.env.example. Copy it in the same directory to create a .env.production file.
- - edit %APPDATA%/com.feedwatch/.env.production and you created API key:
+ - edit %APPDATA%/com.feedwatch/.env.production and either set your API key or your client id/secret (OAuth):
  ```
  YOUTUBE_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+ YOUTUBE_CLIENT_ID=XXXXXXX-XXXXXXXXXXX.apps.googleusercontent.com
+ YOUTUBE_CLIENT_SECRET=XX-XXXXXXXXXXXXXX
  ```
  - restarting the application should then work fine.

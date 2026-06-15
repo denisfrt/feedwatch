@@ -38,15 +38,17 @@ body,
     }
 }
 
-#settings-button {
+#settings-button,
+#connect-button {
     width: 24px;
     height: 20px;
     background-color: var(--bg);
-    margin: 10px;
+    margin-left: 10px;
     padding: 0px;
 }
 
-#settings-button img {
+#settings-button img,
+#connect-button img {
     width: 100%;
     height: 100%;
     margin: 0px;

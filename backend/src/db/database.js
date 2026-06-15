@@ -86,13 +86,13 @@ async function getSession(type, id) {
     }
     const nowDate = new Date();
     let r = { token: null, refresh: null };
-    if (json.f_token_expiry) {
-        const tokenExpiryDate = new Date(json.f_token_expiry * 1000);
+    if (json?.f_token_expiry) {
+        const tokenExpiryDate = new Date(json.f_token_expiry * 1000 - 30000);
         if (nowDate < tokenExpiryDate) {
             r.token = json.f_token;
         }
     }
-    if (json.f_refresh_expiry) {
+    if (json?.f_refresh_expiry) {
         const refreshExpiryDate = new Date(json.f_refresh_expiry * 1000);
         if (nowDate < refreshExpiryDate) {
             r.refresh = json.f_refresh;
@@ -125,7 +125,7 @@ const api = {
     delHandle: (type, handle) => delHandle(type, handle),
     addSession: (type, token, refresh, t_expiry, r_expiry) => addSession(type, token, refresh, t_expiry, r_expiry),
     getSession: (type, id) => getSession(type, id),
-    clearSession: (type) => clearSession(type)
+    clearSession: (type, all) => clearSession(type, all)
 };
 
 export default api;

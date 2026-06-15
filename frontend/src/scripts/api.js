@@ -34,11 +34,22 @@ export async function request(endpoint, options = {}) {
     return json;
 }
 
+export function getAuthUrl(isLogin) {
+    const suffix = isLogin ? 'login' : 'logout';
+    return `${BASE_URL}/api/auth/google/${suffix}`;
+}
+
 export async function isAlive(maxAttempts = 15, delayMs = 1000) {
     for (let i = 0; i < maxAttempts; i++) {
         try {
             const res = await request('/api/health', { method: 'GET' });;
-            if (res.status === 'ok') return true;
+            if (res.status === 'ok') {
+                return {
+                    alive: true,
+                    connectable: res.connectable,
+                    connected: res.connected
+                };
+            }
         } catch {
             // ignore
         }

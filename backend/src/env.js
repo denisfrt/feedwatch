@@ -78,6 +78,8 @@ if (process.env.NODE_ENVFILE) {
 const env = {
     mode: process.env.NODE_ENV || abort('missing env mode'),
     port: process.env.PORT || 5000,
+    host: process.env.HOST || 'localhost',
+    frontend_url: process.env.FRONTEND_URL || abort('missing env frontend_url'),
     log_level: process.env.LOG_LEVEL || 'error',
     database: {
         bindings: getRes('node_modules/better-sqlite3/build/Release/better_sqlite3.node'),

@@ -192,15 +192,14 @@ router.get('/feed', async (req, res) => {
         if (!req.query?.handle) {
             throw { status: 403, message: 'missing handle param' };
         }
-        const credentials = await getCredentials(req, res);
+        const credentials = await getCredentials();
         const api = await importApi('default', credentials);
         const data = await fetchChannelVideos(api, req.query.handle);
         res.json(data);
     } catch (err) {
         res.status(err.status || 500).json({
             error: "Feed fetching failed.",
-            details: err.message,
-            b: JSON.stringify(err)
+            details: err.message
         });
     }
 });
