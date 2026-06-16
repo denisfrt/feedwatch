@@ -4,6 +4,7 @@ import express from 'express';
 import session from 'express-session';
 import cors from 'cors';
 import routerDFT from './routes/default.js';
+import { getSessionDatabase } from './db/sqlite3-wrapper.js';
 
 const app = express();
 app.use(cors({ credentials: true, origin: env.frontend_url }));
@@ -13,6 +14,7 @@ app.use(session({
     secret: env.secrets.session,
     resave: false,
     saveUninitialized: false,
+    store: getSessionDatabase(env.database),
     //    cookie: {
     //        httpOnly: true,        // Prevents XSS access to cookie
     //        secure: false, //env.mode === 'production',

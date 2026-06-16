@@ -1,10 +1,10 @@
 import env from '../env.js';
-import { openSqlite3Database } from './sqlite3-wrapper.js';
+import { getProvisioningDatabase } from './sqlite3-wrapper.js';
 
 //import Database from 'better-sqlite3';
 //const db = new Database(':memory:'); // In-memory DB
 //const db = new Database(env.database.filename);
-const db = openSqlite3Database(env.database, env.database);
+const db = getProvisioningDatabase(env.database);
 
 async function getHandles(type) {
     const query = db.prepare(`SELECT f_name

@@ -1,4 +1,0 @@
-- icons
-- see backend error: Warning: connect.session() MemoryStore is not
-      backend error: designed for a production environment, as it will leak
-      backend error: memory, and will not scale past a single process.

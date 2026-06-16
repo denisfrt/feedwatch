@@ -86,6 +86,7 @@ const env = {
         bindings: getRes('node_modules/better-sqlite3/build/Release/better_sqlite3.node'),
         filename: getData(process.env.DB_FILENAME) || abort('missing env/db filename'),
         schema: getRes(process.env.DB_SCHEMA_FILENAME) || abort('missing env/db schema'),
+        sessions: getData(process.env.DB_SESSION_FILENAME) || abort('missing env/db/session filename'),
     },
     secrets: {
         session: process.env.SESSION_SECRET || abort('missing env/session key'),
