@@ -1,31 +1,37 @@
 import fs from 'node:fs';
-import { isSea, getRawAsset } from 'node:sea';
+import session from 'express-session';
+import SqliteStoreFactory from 'better-sqlite3-session-store';
+import { isSea } from 'node:sea';
 import { createRequire } from "module";
 import { createDir, normalizeWindowsPath } from '../env.js';
 import log from '../logger.js';
 
-export function openSqlite3Database(dbOptions) {
+function loadDatabase(filename, bindings) {
     let db = null;
     if (!isSea()) {
         const nodeRequire = createRequire(import.meta.url);
         const Database = nodeRequire('better-sqlite3');
-        db = new Database(dbOptions.filename);
+        db = new Database(filename);
     } else {
-        // write bindings from assets
-        const moduleName = 'better_sqlite3.node';
+        // get bindings from assets
         try {
-            const bindingPath = normalizeWindowsPath(dbOptions.bindings);
+            const bindingPath = normalizeWindowsPath(bindings);
             // load module & open database
             const { createRequire } = require('node:module');
             const nodeRequire = createRequire(bindingPath);
             const Database = nodeRequire('better-sqlite3');
-            createDir(dbOptions.filename);
-            db = new Database(dbOptions.filename, { nativeBinding: bindingPath });
+            createDir(filename);
+            db = new Database(filename, { nativeBinding: bindingPath });
             db.pragma('journal_mode = WAL');
         } catch (err) {
             log.error(err);
         }
     }
+    return db;
+}
+
+export function getProvisioningDatabase(dbOptions) {
+    const db = loadDatabase(dbOptions.filename, dbOptions.bindings);
     // init database
     if (db) {
         const schema = fs.readFileSync(dbOptions.schema, 'utf8');
@@ -38,6 +44,18 @@ export function openSqlite3Database(dbOptions) {
         });
     }
     return db;
+}
+
+export function getSessionDatabase(dbOptions) {
+    const sessionDB = loadDatabase(dbOptions.sessions, dbOptions.bindings);
+    const SqliteStore = SqliteStoreFactory(session);
+    return new SqliteStore({
+        client: sessionDB,
+        expired: {
+            clear: true,
+            intervalMs: 15 * 60 * 1000
+        }
+    });
 }
 
 /*

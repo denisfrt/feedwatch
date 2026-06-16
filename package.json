@@ -4,6 +4,7 @@
     "description": "",
     "scripts": {
         "dev": "pnpm run --parallel dev",
+        "lint": "pnpm run --parallel lint",
         "dev:frontend": "pnpm run --filter frontend dev",
         "dev:backend": "pnpm run --filter backend dev",
         "dev:tauri": "pnpm run --filter tauri tauri:dev",

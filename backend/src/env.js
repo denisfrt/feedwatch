@@ -11,7 +11,7 @@ export function createDir(filePath) {
     const dir = path.dirname(filePath);
     fs.mkdir(dir, { recursive: true }, (err) => {
         if (err) {
-            log.error('Error creating directory:', err);
+            console.error('Error creating directory:', err);
         }
     });
 }
@@ -52,8 +52,9 @@ function getConfig(dir, useDefault = true) {
     return cwd && dir ? `${cwd}/${dir}` : undefined;
 }
 
-const srcExampleFile = getRes('.env.example');
+const srcExampleFile = getRes(`.env.example.${process.platform}`);
 const dstExampleFile = getConfig('.env.example');
+console.info(`Copying ${srcExampleFile} to ${dstExampleFile}`);
 copyFile(srcExampleFile, dstExampleFile);
 
 if (process.env.NODE_ENVFILE) {
@@ -78,18 +79,30 @@ if (process.env.NODE_ENVFILE) {
 const env = {
     mode: process.env.NODE_ENV || abort('missing env mode'),
     port: process.env.PORT || 5000,
+    host: process.env.HOST || 'localhost',
+    frontend_url: process.env.FRONTEND_URL || abort('missing env frontend_url'),
     log_level: process.env.LOG_LEVEL || 'error',
     database: {
         bindings: getRes('node_modules/better-sqlite3/build/Release/better_sqlite3.node'),
         filename: getData(process.env.DB_FILENAME) || abort('missing env/db filename'),
         schema: getRes(process.env.DB_SCHEMA_FILENAME) || abort('missing env/db schema'),
+        sessions: getData(process.env.DB_SESSION_FILENAME) || abort('missing env/db/session filename'),
     },
     secrets: {
         session: process.env.SESSION_SECRET || abort('missing env/session key'),
-        yt_key: process.env.YOUTUBE_API_KEY || abort('missing env/yt key')
+        yt_apikey: process.env.YOUTUBE_API_KEY,
+        yt_clientid: process.env.YOUTUBE_CLIENT_ID,
+        yt_clientsecret: process.env.YOUTUBE_CLIENT_SECRET,
     },
 };
 
-const { secrets, ...debugEnv } = env;
+if (!env.secrets.yt_apikey) {
+    if (!env.secrets.yt_clientid || !env.secrets.yt_clientsecret) {
+        abort('missing youtube credentials');
+    }
+}
+
+const debugEnv = { ...env };
+delete debugEnv.secrets;
 console.info('env: ' + JSON.stringify(debugEnv, null, 2));
 export default env;

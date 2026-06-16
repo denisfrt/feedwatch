@@ -20,10 +20,10 @@ jobs:
         os: [ ubuntu-latest, windows-latest ]
         include:
           - os: ubuntu-latest
-            artifact: appimage/feedwatch_0.1.0_amd64.AppImage
+            artifact: appimage/feedwatch_0.2.0_amd64.AppImage
             target: build:linux
           - os: windows-latest
-            artifact: msi/feedwatch_0.1.0_x64_en-US.msi
+            artifact: msi/feedwatch_0.2.0_x64_en-US.msi
             target: build:windows
 
     steps:
@@ -50,6 +50,10 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
+
+      - name: Linter (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: pnpm run lint
 
       - name: Build app
         run: pnpm run ${{ matrix.target }}
