@@ -6,7 +6,7 @@ import cors from 'cors';
 import routerDFT from './routes/default.js';
 
 const app = express();
-app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
+app.use(cors({ credentials: true, origin: env.frontend_url }));
 //app.use(express.static('../client/dist'));
 app.use(express.json());
 app.use(session({

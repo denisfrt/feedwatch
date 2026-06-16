@@ -52,8 +52,9 @@ function getConfig(dir, useDefault = true) {
     return cwd && dir ? `${cwd}/${dir}` : undefined;
 }
 
-const srcExampleFile = getRes('.env.example');
+const srcExampleFile = getRes(`.env.example.${process.platform}`);
 const dstExampleFile = getConfig('.env.example');
+console.info(`Copying ${srcExampleFile} to ${dstExampleFile}`);
 copyFile(srcExampleFile, dstExampleFile);
 
 if (process.env.NODE_ENVFILE) {
