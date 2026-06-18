@@ -13,6 +13,7 @@ function App(props) {
     const [ytHandles, setYtHandles] = useState(props.ytHandles);
     const [isConnected, setIsConnected] = useState(false);
     const [isConnectable, setIsConnectable] = useState(false);
+    const [isConfigured, setIsConfigured] = useState(false);
 
     useEffect(() => {
         uiLogger.debug('App.useEffect');
@@ -25,6 +26,7 @@ function App(props) {
                 const savedHandles = await persist.getHandles();
                 if (!cancelled) {
                     setYtHandles(ytHandles => [...new Set([...ytHandles, ...savedHandles])]);
+                    setIsConfigured(status.configured);
                     setIsConnectable(status.connectable);
                     setIsConnected(status.connected);
                     setIsLoading(false);
@@ -58,6 +60,10 @@ function App(props) {
         </h2>
     );
 
+    const needConfigTemplate = (
+        <h2>Missing configuration. Please complete your environment config file and reload the page (see readme.md).</h2>
+    );
+
     const feedListTemplate = (
         <FeedList
             ytHandles={ytHandles}
@@ -86,6 +92,7 @@ function App(props) {
                 {isConnected && settingButtonTemplate}
             </h1>
             {isLoading && loadingTemplate}
+            {!isLoading && !isConfigured && needConfigTemplate}
             {isConnected && feedListTemplate}
         </>
     );

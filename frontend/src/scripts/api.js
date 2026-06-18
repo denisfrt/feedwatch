@@ -46,6 +46,7 @@ export async function isAlive(maxAttempts = 15, delayMs = 1000) {
             if (res.status === 'ok') {
                 return {
                     alive: true,
+                    configured: res.configured,
                     connectable: res.connectable,
                     connected: res.connected
                 };

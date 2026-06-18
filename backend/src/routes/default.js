@@ -11,6 +11,7 @@ router.get('/health', async (req, res) => {
     const { token, refresh } = await database.getSession('yt', -1);
     res.json({
         status: 'ok',
+        configured: Boolean((env.secrets.yt_clientid && env.secrets.yt_clientsecret) || env.secrets.yt_apikey),
         connectable: Boolean(env.secrets.yt_clientid && env.secrets.yt_clientsecret && !env.secrets.yt_apikey),
         connected: Boolean(token || refresh || env.secrets.yt_apikey)
     });
