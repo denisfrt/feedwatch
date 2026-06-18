@@ -35,8 +35,9 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt update
-          sudo apt install -y libwebkit2gtk-4.1-dev build-essential \
-            curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
+          sudo apt install -y --no-install-recommends --no-install-suggests \
+            libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev \
+            libssl-dev libayatana-appindicator3-dev librsvg2-dev
           sudo cp tauri/bin/xdg-open /usr/bin/xdg-open
           sudo chmod +x /usr/bin/xdg-open
 
