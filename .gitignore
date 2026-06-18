@@ -5,3 +5,4 @@
 **/package-lock.json
 **/pnpm-lock.yaml
 **/database.sqlite*
+**/sessions.sqlite*

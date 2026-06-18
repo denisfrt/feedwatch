@@ -1,3 +1,5 @@
+minimumReleaseAge: 10080
+minimumReleaseAgeStrict: true
 packages:
   - 'frontend'
   - 'backend'
